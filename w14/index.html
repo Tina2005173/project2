@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User List</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .card {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin: 10px auto;
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ddd;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>User List</h2>
+
+<button onclick="loadUsers()">Load Users</button>
+
+<div id="output"></div>
+
+<script>
+function loadUsers() {
+
+    fetch("/api")   // ✅ same origin → NO CORS needed
+    .then(res => res.json())
+    .then(data => {
+
+        let output = "";
+
+        data.forEach(user => {
+            output += `
+                <div class="card">
+                    <h3>${user.name}</h3>
+                    <p>${user.email}</p>
+                </div>
+            `;
+        });
+
+        document.getElementById("output").innerHTML = output;
+    })
+    .catch(err => {
+        document.getElementById("output").innerHTML = "Error loading users";
+    });
+}
+</script>
+
+</body>
+</html>

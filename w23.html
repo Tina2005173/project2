@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PICT Activities</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- jQuery Mobile -->
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <style>
+        body { font-family: Arial; }
+
+        .ui-page {
+            background: linear-gradient(to right, #74ebd5, #ACB6E5);
+        }
+
+        .ui-header {
+            background: #2c3e50 !important;
+            color: white !important;
+        }
+
+        .ui-navbar ul li a {
+            background: #34495e !important;
+            color: white !important;
+        }
+
+        .ui-btn-active {
+            background: #1abc9c !important;
+        }
+
+        /* Card Design */
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 10px;
+            margin: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .card img {
+            width: 60%;
+            border-radius: 10px;
+            object-fit:cover;
+        }
+
+        .card h3 {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- HOME -->
+<div data-role="page" id="home">
+
+    <div data-role="header"><h1>PICT</h1></div>
+
+    <div data-role="navbar">
+        <ul>
+            <li><a href="#home" class="ui-btn-active" data-transition="slide">Home</a></li>
+            <li><a href="#about" data-transition="slide">About</a></li>
+            <li><a href="#clubs" data-transition="fade">Clubs</a></li>
+            <li><a href="#contact" data-transition="pop">Contact</a></li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h2>Welcome to PICT</h2>
+        <p>Explore student clubs and extracurricular activities.</p>
+    </div>
+
+</div>
+
+<!-- ABOUT -->
+<div data-role="page" id="about">
+
+    <div data-role="header"><h1>About</h1></div>
+
+    <div data-role="navbar">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about" class="ui-btn-active">About</a></li>
+            <li><a href="#clubs">Clubs</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <p>PICT is known for academic excellence and vibrant student life.</p>
+    </div>
+
+</div>
+
+<!-- CLUB LIST (CARDS) -->
+<div data-role="page" id="clubs">
+
+    <div data-role="header"><h1>Student Clubs</h1></div>
+
+    <div data-role="navbar">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#clubs" class="ui-btn-active">Clubs</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Cards -->
+    <a href="#coding" data-transition="flip">
+        <div class="card">
+            <img src="one.jpg">
+            <h3>Coding Club</h3>
+        </div>
+    </a>
+
+    <a href="#robotics" data-transition="flip">
+        <div class="card">
+            <img src="https://via.placeholder.com/300x150?text=Robotics+Club">
+            <h3>Robotics Club</h3>
+        </div>
+    </a>
+
+    <a href="#dance" data-transition="flip">
+        <div class="card">
+            <img src="https://via.placeholder.com/300x150?text=Dance+Club">
+            <h3>Dance Club</h3>
+        </div>
+    </a>
+
+</div>
+
+<!-- CODING CLUB DETAILS -->
+<div data-role="page" id="coding">
+
+    <div data-role="header"><h1>Coding Club</h1></div>
+<div data-role="navbar">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#clubs">Clubs</a></li>
+            <li><a href="#contact" class="ui-btn-active">Contact</a></li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>Name</h3>
+        <p>Coding Club</p>
+
+        <h3>Description</h3>
+        <p>Focuses on programming, hackathons, and development skills.</p>
+
+        <h3>Achievements</h3>
+        <p>Won national coding competitions and hackathons.</p>
+
+        <img src="https://via.placeholder.com/300x150?text=Coding+Club">
+    </div>
+
+</div>
+
+<!-- ROBOTICS CLUB DETAILS -->
+<div data-role="page" id="robotics">
+
+    <div data-role="header"><h1>Robotics Club</h1></div>
+<div data-role="navbar">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#clubs">Clubs</a></li>
+            <li><a href="#contact" class="ui-btn-active">Contact</a></li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>Name</h3>
+        <p>Robotics Club</p>
+
+        <h3>Description</h3>
+        <p>Designs and builds robots for competitions.</p>
+
+        <h3>Achievements</h3>
+        <p>Won RoboFest and national robotics events.</p>
+
+        <img src="https://via.placeholder.com/300x150?text=Robotics+Club">
+    </div>
+
+</div>
+
+<!-- DANCE CLUB DETAILS -->
+<div data-role="page" id="dance">
+
+    <div data-role="header"><h1>Dance Club</h1></div>
+<div data-role="navbar">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#clubs">Clubs</a></li>
+            <li><a href="#contact" class="ui-btn-active">Contact</a></li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>Name</h3>
+        <p>Dance Club</p>
+
+        <h3>Description</h3>
+        <p>Encourages creativity through dance and cultural performances.</p>
+
+        <h3>Achievements</h3>
+        <p>Won inter-college cultural competitions.</p>
+
+        <img src="https://via.placeholder.com/300x150?text=Dance+Club">
+    </div>
+
+</div>
+
+<!-- CONTACT -->
+<div data-role="page" id="contact">
+
+    <div data-role="header"><h1>Contact</h1></div>
+
+    <div data-role="navbar">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#clubs">Clubs</a></li>
+            <li><a href="#contact" class="ui-btn-active">Contact</a></li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <p><b>Address:</b> Dhankawadi, Pune</p>
+        <p><b>Email:</b> pict@college.com</p>
+    </div>
+
+</div>
+
+</body>
+</html>

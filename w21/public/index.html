@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bookstore</title>
+    <style>
+        body { text-align:center; font-family:Arial; }
+        input, button { margin:5px; padding:8px; }
+        table { border-collapse:collapse; width:90%; margin:auto; }
+        th, td { border:1px solid black; padding:10px; }
+    </style>
+</head>
+
+<body>
+
+<h2>📚 Book Management</h2>
+
+<!-- ADD BOOK -->
+<input id="title" placeholder="Title">
+<input id="author" placeholder="Author">
+<input id="price" placeholder="Price">
+<input id="genre" placeholder="Genre">
+<button onclick="addBook()">Add Book</button>
+
+<br><br>
+
+<button onclick="loadBooks()">View All Books</button>
+
+<br><br>
+
+<!-- UPDATE -->
+<input id="uTitle" placeholder="Title to Update">
+<input id="uPrice" placeholder="New Price">
+<button onclick="updateBook()">Update Price</button>
+
+<!-- DELETE -->
+<input id="dTitle" placeholder="Title to Delete">
+<button onclick="deleteBook()">Delete</button>
+
+<table>
+<thead>
+<tr>
+<th>Title</th>
+<th>Author</th>
+<th>Price</th>
+<th>Genre</th>
+</tr>
+</thead>
+<tbody id="data"></tbody>
+</table>
+
+<script>
+
+// Add Book
+function addBook() {
+    fetch('/books', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            title: document.getElementById("title").value,
+            author: document.getElementById("author").value,
+            price: document.getElementById("price").value,
+            genre: document.getElementById("genre").value
+        })
+    })
+    .then(res => res.text())
+    .then(msg => {
+        alert(msg);
+
+        // clear fields
+        document.getElementById("title").value = "";
+        document.getElementById("author").value = "";
+        document.getElementById("price").value = "";
+        document.getElementById("genre").value = "";
+
+        loadBooks();
+    });
+}
+
+// View Books
+function loadBooks() {
+    fetch('/books')
+    .then(res => res.json())
+    .then(data => display(data));
+}
+
+// Display
+function display(data) {
+    let html = "";
+    data.forEach(b => {
+        html += `
+        <tr>
+            <td>${b.title}</td>
+            <td>${b.author}</td>
+            <td>${b.price}</td>
+            <td>${b.genre}</td>
+        </tr>`;
+    });
+    document.getElementById("data").innerHTML = html;
+}
+
+// Update
+function updateBook() {
+    let title = document.getElementById("uTitle").value;
+
+    fetch('/books/' + title, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            price: document.getElementById("uPrice").value
+        })
+    })
+    .then(res => res.text())
+    .then(msg => alert(msg));
+}
+
+// Delete
+function deleteBook() {
+    let title = document.getElementById("dTitle").value;
+
+    fetch('/books/' + title, {
+        method: 'DELETE'
+    })
+    .then(res => res.text())
+    .then(msg => {
+        alert(msg);
+        loadBooks();
+    });
+}
+
+</script>
+
+</body>
+</html>

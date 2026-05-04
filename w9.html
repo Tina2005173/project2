@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather App</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        .box {
+            background: white;
+            padding: 20px;
+            width: 300px;
+            margin: auto;
+            margin-top: 50px;
+            border-radius: 10px;
+        }
+
+        input, button {
+            padding: 10px;
+            margin: 10px;
+            width: 80%;
+        }
+
+        #result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+    <h2>Weather App</h2>
+
+    <input type="text" id="city" placeholder="Enter City Name">
+    <button onclick="getWeather()">Get Weather</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+
+function getWeather() {
+
+    let city = document.getElementById("city").value.toLowerCase();
+    document.getElementById("result").innerHTML = "Loading...";
+
+    let xhr = new XMLHttpRequest();
+
+    xhr.open("GET", "data.json", true);
+
+    xhr.onreadystatechange = function () {
+
+        if (xhr.readyState === 4) {
+
+            if (xhr.status === 200) {
+
+                let weatherData = JSON.parse(xhr.responseText);
+
+                if (weatherData[city]) {
+
+                    let data = weatherData[city];
+
+                    document.getElementById("result").innerHTML = `
+                        <h3>${city.toUpperCase()}</h3>
+                        <p>Temperature: ${data.temp} °C</p>
+                        <p>Humidity: ${data.humidity}%</p>
+                        <p>Condition: ${data.condition}</p>
+                    `;
+
+                } else {
+                    document.getElementById("result").innerHTML = "City not found!";
+                }
+
+            } else {
+                document.getElementById("result").innerHTML = "Error loading data!";
+            }
+        }
+    };
+
+    xhr.send();
+}
+
+</script>
+
+</body>
+</html>

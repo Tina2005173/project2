@@ -1,0 +1,140 @@
+<html>
+    <body>
+        <div class="box">
+            <input id="name" placeholder="name"><br>
+            <input id="email" placeholder="Email"><br>
+            <input id="mobile" placeholder="Mobile"><br>
+            <input type="date" id="dob"><br>
+            <input id="city" placeholder="City"><br>
+            <input id="address" placeholder="Address"><br>
+            <input id="username" placeholder="Username"><br>
+            <input type="password" id="password" placeholder="Password"><br>
+        
+            <button onclick="register()">Register</button>
+
+        </div>
+        </div>
+
+        <div class="box">
+    <input id="loginUser" placeholder="Username"><br>
+    <input type="password" id="loginPass" placeholder="Password"><br>
+
+    <button onclick="login()">Login</button>
+</div>
+
+        <script>
+
+            function validate (users)
+            {
+                for(let key in users)
+                {
+                    if(!users[key] || users[key].toString().trim()==="")
+                    {
+                        alert(key + "is required ");
+                        return false;
+                    }
+                }
+
+                let emailpattern=/^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+                let mobileno=/^[0-9]{10}$/;
+
+                if(!emailpattern.test(users.email))
+                {
+                    alert("invalid email no ");
+                    return false;
+                }
+                if (!mobileno.test(users.mobile)) {
+                alert("Invalid mobile number");
+                return false;
+            }
+
+                if (users.password.length < 4) {
+                    alert("Password must be at least 4 characters");
+                    return false;
+                }
+
+                return true;
+            }
+
+
+            function ajaxPost (url , data , callback)
+            {
+                let xhr = new XMLHttpRequest();
+                xhr.open("POST", url,true);
+                xhr.onload=function()
+                {
+                    if(xhr.status===200)
+                    {
+                        callback(xhr.response); 
+                    }
+                };
+
+                setTimeout(()=>{
+                    let users = JSON.parse(localStorage.getItem("users")) || [];
+                    let response ={success:true};
+                    if(url === "/register")
+                    {
+                        let exists = users.find(u=>u.username === data.username);
+                        if(exists){
+                            response = {success:false,message:"user already exists"};
+                        }
+                        else{
+                            users.push(data);
+                            localStorage.setItem("users",JSON.stringify(users));
+                        }
+                    }
+
+                    xhr.status=200;
+                    xhr.response=response;
+                    xhr.onload();
+                },300);
+
+                //xhr.send(JSON.stringify(data));
+            }
+
+            function register()
+            {
+                let users = {
+                    name:document.getElementById("name").value.trim(),
+                    email: document.getElementById("email").value.trim(),
+                    mobile: document.getElementById("mobile").value.trim(),
+                    dob: document.getElementById("dob").value,
+                    city: document.getElementById("city").value.trim(),
+                    address: document.getElementById("address").value.trim(),
+                    username: document.getElementById("username").value.trim(),
+                    password: document.getElementById("password").value.trim()
+                };
+
+                console.log(users);
+
+                if(!validate(users)) return ;
+
+                ajaxPost("/register" , users , function(res){
+                    if(!res.success)
+                {
+                    alert(res.message);
+                    return ;
+                }
+                    alert("register successfuly")
+                });
+            }
+
+            function login()
+            {
+                let u = document.getElementById("loginUser").value.trim();
+                let p = document.getElementById("loginPass").value.trim();
+
+                let users = JSON.parse(localStorage.getItem("users")) || [];
+
+                let found = users.find(user => user.username === u && user.password === p);
+
+                if (found) {
+                    alert("Login Successful!");
+                    window.location.href = "data.html";
+                } else {
+                    alert("Invalid Credentials");
+                }
+                        }
+        </script>
+    </body>
+</html>

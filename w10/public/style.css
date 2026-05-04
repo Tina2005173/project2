@@ -1,0 +1,88 @@
+body {
+    font-family: Arial;
+    background: linear-gradient(to right, #667eea, #764ba2);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Container */
+.app {
+    background: white;
+    padding: 20px;
+    width: 350px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* Input */
+.input-box {
+    display: flex;
+    gap: 10px;
+}
+
+.input-box input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.input-box button {
+    padding: 10px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* Task list */
+li {
+    list-style: none;
+    background: #f9f9f9;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: space-between;
+}
+
+/* Left section */
+.task-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+}
+
+/* Input text */
+.task-left input[type="text"] {
+    border: none;
+    background: transparent;
+    outline: none;
+    width: 100%;
+}
+
+/* Completed */
+.done {
+    text-decoration: line-through;
+    color: gray;
+}
+
+/* Buttons */
+.actions button {
+    border: none;
+    padding: 5px 8px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit { background: #ffc107; }
+.save { background: #28a745; color: white; }
+.delete { background: #dc3545; color: white; }

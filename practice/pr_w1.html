@@ -1,0 +1,248 @@
+<!-- <html>
+
+<head>
+    <title> w1</title>
+    <style>
+        body{
+            text-align: center;
+        }
+
+        table{
+            margin : auto;
+            border-collapse: collapse;
+            width:80%;
+        }
+
+        th,td{
+            border:1px solid ;
+        }
+
+        tr {
+            padding : 10% ;
+        }
+
+        img {
+            width: 60px;
+            height: 60px;
+        }
+    </style>
+</head>
+    <body>
+        <h1>product list </h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>product image</th>
+                    <th>product name</th>
+                    <th>product price</th>
+                    <th>product description</th>
+                </tr>
+            </thead>
+            <tbody id = "tableBody"></tbody>
+        </table>
+
+        <button onclick="prev()">prev</button>
+        <span id ="numbering"></span>
+        <button onclick="next()"> next</button>
+
+    </body>
+    <script>
+        const arr=[
+            {name: "Wireless Headphones", price: 7999, desc: "Noise-cancelling headphones", img:"one.jpg"},
+            {name: "Smartwatch", price: 12999, desc: "Fitness tracking watch", img: "https://via.placeholder.com/60"},
+            {name: "Gaming Mouse", price: 2499, desc: "Ergonomic gaming mouse", img: "https://via.placeholder.com/60"},
+            {name: "Laptop Stand", price: 1999, desc: "Adjustable stand", img: "https://via.placeholder.com/60"},
+            {name: "Keyboard", price: 1499, desc: "Mechanical keyboard", img: "https://via.placeholder.com/60"},
+            {name: "Monitor", price: 9999, desc: "24 inch display", img: "https://via.placeholder.com/60"},
+            {name: "USB Hub", price: 799, desc: "Multi-port USB hub", img: "https://via.placeholder.com/60"},
+            {name: "External HDD", price: 5499, desc: "1TB storage", img: "https://via.placeholder.com/60"},
+            {name: "Webcam", price: 2999, desc: "HD webcam", img: "https://via.placeholder.com/60"},
+            {name: "Speaker", price: 1999, desc: "Bluetooth speaker", img: "https://via.placeholder.com/60"},
+            {name: "Power Bank", price: 1499, desc: "10000mAh battery", img: "https://via.placeholder.com/60"},
+            {name: "Router", price: 2499, desc: "WiFi router", img: "https://via.placeholder.com/60"}
+        ];
+
+        let currentPage = 1;
+        const totno = 5 ;
+
+        function displayTable()
+        {
+            const tableBody = document.getElementById("tableBody");
+            tableBody.innerHTML="";
+
+            const start = (currentPage-1) * totno ;
+            const end = start + totno ;
+            const pageData = arr.slice(start,end);
+
+           pageData.forEach(arr =>
+                {
+                    let row = `<tr>
+                                    <td><img src ="${arr.img}"></td>
+                                    <td>${arr.name}</td>
+                                    <td>${arr.price}</td>
+                                    <td>${arr.desc}</td>
+                                </tr>`;
+                    tableBody.innerHTML+=row;
+                }
+           );
+
+           document.getElementById("numbering").innerText="page" + currentPage + "of" + Math.ceil(arr.length/totno);
+        }
+
+        function next()
+        {
+            if(currentPage < Math.ceil(arr.length/totno))
+            {
+                currentPage++;
+                displayTable();
+            }
+        }
+
+        function prev()
+        {
+            if(currentPage > 1)
+            {
+                currentPage--;
+                displayTable();
+            }
+        }
+        displayTable();
+    </script>
+</html> -->
+
+
+<html>
+<head>
+    <title> practice2 w1
+    </title>
+    <style>
+
+        body{
+         
+            background-color:rgb(243, 239, 235);
+            text-align:center;
+        }
+
+        table{
+            
+            border-collapse: collapse;
+            margin :auto;
+            width:80%;
+        }
+
+        th,td{
+            border:1px solid black;
+            padding:10px;
+        }
+
+        img{
+            width:60px;
+            height:60px;
+        }
+        button{
+            padding : 10px;
+            margin :5px;
+            background-color: aquamarine;
+        }
+        .pagination{
+            margin:20px;
+        }
+
+
+    </style>
+</head>
+
+    <body>
+        <table>
+             <thead>
+                <tr>
+                
+                    <th>image</th>
+                    <th>name</th>
+                    <th>price</th>
+                    <th>description</th>
+                
+                </tr>
+            </thead>
+
+            <tbody id="tablebody"></tbody>
+
+        </table>
+        <div id="pagination">
+            <button onclick="prev()">prev</button>
+            <span id="numbering"></span>
+            <button onclick="next()"> next</button>
+        </div>
+
+
+        <script>
+            const product =[
+                {name:"headphones",price:10000,description:"headphones",img:"one.jpg"},
+                {name:"headphones",price:10000,description:"headphones",img:"one.jpg"},
+                {name:"headphones",price:10000,description:"headphones",img:"one.jpg"},
+                {name:"headphones",price:10000,description:"headphones",img:"one.jpg"},
+                {name:"headphones",price:10000,description:"headphones",img:"one.jpg"},
+                {name:"headphones",price:10000,description:"headphones",img:"one.jpg"},
+                {name:"headphones",price:10000,description:"headphones",img:"one.jpg"},
+                {name:"headphones",price:10000,description:"headphones",img:"one.jpg"},
+                {name:"headphones",price:10000,description:"headphones",img:"one.jpg"},
+                {name:"headphones",price:10000,description:"headphones",img:"one.jpg"},
+                {name:"headphones",price:10000,description:"headphones",img:"one.jpg"},
+                {name:"headphones",price:10000,description:"headphones",img:"one.jpg"},
+                {name:"headphones",price:10000,description:"headphones",img:"one.jpg"},
+                {name:"headphones",price:10000,description:"headphones",img:"one.jpg"},
+            ];
+
+            let currentpage = 1;
+            const totpage=5;
+
+            function getinfo()
+            {
+                const tablebody = document.getElementById("tablebody");
+                tablebody.innerHTML="";
+
+                const start = (currentpage - 1) * totpage ;
+                const end = start+totpage;
+                const page = product.slice(start,end);
+
+                page.forEach(p => {
+                    let row = `<tr>
+                            <td><img src = ${p.img}></td>
+                            <td>${p.name}</td>
+                            <td>₹${p.price}</td>
+                            <td>${p.description}</td>
+                        </tr>`;
+
+                        tablebody.innerHTML+=row;
+                });
+
+                document.getElementById("numbering").innerHTML = 
+                "   page "+ currentpage +"  of  "+ Math.ceil(product.length/totpage);
+
+            }
+
+            function prev()
+            {
+                if(currentpage > 1)
+                {
+                    currentpage--;
+                    getinfo();
+                }
+            }
+
+            function next()
+            {
+                if(currentpage < Math.ceil(product.length/totpage))
+                {
+                    currentpage++;
+                    getinfo();
+                }
+
+            }
+
+            getinfo();
+
+        </script>
+
+    </body>
+</html>

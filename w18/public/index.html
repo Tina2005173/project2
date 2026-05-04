@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Music App</title>
+    <style>
+        body { font-family: Arial; text-align: center; }
+        input, button { margin: 5px; padding: 8px; }
+        table {
+            border-collapse: collapse;
+            width: 90%;
+            margin: auto;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>🎵 Music Database</h2>
+
+<button onclick="insertData()">Insert 5 Songs</button>
+<button onclick="loadSongs()">View All Songs</button>
+
+<br><br>
+
+<input id="director" placeholder="Director">
+<button onclick="byDirector()">Search</button>
+
+<input id="dir2" placeholder="Director">
+<input id="singer2" placeholder="Singer">
+<button onclick="byDirSinger()">Search</button>
+
+<br><br>
+
+<input id="deleteName" placeholder="Song to Delete">
+<button onclick="deleteSong()">Delete</button>
+
+<input id="updateName" placeholder="Song to Update">
+<button onclick="updateSongREST()">Update</button>
+
+<br><br>
+
+<input id="song" placeholder="Song">
+<input id="film" placeholder="Film">
+<input id="md" placeholder="Director">
+<input id="singer" placeholder="Singer">
+<button onclick="addSong()">Add Song</button>
+
+<button onclick="loadSongsWithCount()">View Songs + Count</button>
+<h3 id="count"></h3>
+
+<input id="sfSinger" placeholder="Singer">
+<input id="sfFilm" placeholder="Film">
+<button onclick="bySingerFilm()">Search</button>
+
+<input id="uName" placeholder="Song Name">
+<input id="uActor" placeholder="Actor">
+<input id="uActress" placeholder="Actress">
+<button onclick="updateActorPUT()">Update Actor/Actress</button>
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Song</th>
+            <th>Film</th>
+            <th>Director</th>
+            <th>Singer</th>
+            <th>Actor</th>
+            <th>Actress</th>
+        </tr>
+    </thead>
+    <tbody id="data"></tbody>
+</table>
+
+<script>
+
+// Insert
+function insertData() {
+    fetch('/insert')
+    .then(res => res.text())
+    .then(msg => alert(msg));
+}
+
+// Load all
+function loadSongs() {
+    document.getElementById("data").innerHTML =
+        "<tr><td colspan='6'>Loading...</td></tr>";
+
+    fetch('/songs')
+    .then(res => res.json())
+    .then(data => display(data));
+}
+
+// Display
+function display(data) {
+    let html = "";
+
+    if (data.length === 0) {
+        html = `
+        <tr>
+            <td colspan="6" style="color:red;">
+                ❌ No matching songs found
+            </td>
+        </tr>`;
+    } else {
+        data.forEach(s => {
+            html += `
+            <tr>
+                <td>${s.Songname}</td>
+                <td>${s.Film}</td>
+                <td>${s.Music_director}</td>
+                <td>${s.singer}</td>
+                <td>${s.actor || "-"}</td>
+                <td>${s.actress || "-"}</td>
+            </tr>`;
+        });
+    }
+
+    document.getElementById("data").innerHTML = html;
+}
+
+// Search by Director
+function byDirector() {
+    let d = document.getElementById("director").value;
+
+    document.getElementById("data").innerHTML =
+        "<tr><td colspan='6'>Searching...</td></tr>";
+
+    fetch('/director/' + encodeURIComponent(d))
+    .then(res => res.json())
+    .then(data => display(data));
+}
+
+// Search Director + Singer
+function byDirSinger() {
+    let d = document.getElementById("dir2").value;
+    let s = document.getElementById("singer2").value;
+
+    document.getElementById("data").innerHTML =
+        "<tr><td colspan='6'>Searching...</td></tr>";
+
+    fetch(`/director-singer?director=${encodeURIComponent(d)}&singer=${encodeURIComponent(s)}`)
+    .then(res => res.json())
+    .then(data => display(data));
+}
+
+// Delete
+function deleteSongREST() {
+    let name = document.getElementById("deleteName").value;
+
+    fetch('/songs/' + encodeURIComponent(name), {
+        method: 'DELETE'
+    })
+    .then(res => res.text())
+    .then(msg => {
+        alert(msg);
+        loadSongs();
+    });
+}
+
+// Update
+function updateSongREST() {
+    let name = document.getElementById("updateName").value;
+
+    fetch('/songs/' + encodeURIComponent(name), {
+        method: 'PUT',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            actor: "MNO",
+            actress: "PQR"
+        })
+    })
+    .then(res => res.text())
+    .then(msg => {
+        alert(msg);
+        loadSongs();
+    });
+}
+
+// Add
+function addSong() {
+    let song = document.getElementById("song").value;
+    let film = document.getElementById("film").value;
+    let md = document.getElementById("md").value;
+    let singer = document.getElementById("singer").value;
+
+    fetch('/add', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            Songname: song,
+            Film: film,
+            Music_director: md,
+            singer: singer
+        })
+    })
+    .then(res => res.text())
+    .then(msg => {
+        alert(msg);
+        loadSongs();
+    });
+}
+
+function loadSongsWithCount() {
+    document.getElementById("data").innerHTML =
+        "<tr><td colspan='6'>Loading...</td></tr>";
+
+    fetch('/songs-count')
+    .then(res => res.json())
+    .then(result => {
+        document.getElementById("count").innerText =
+            "Total Songs: " + result.count;
+
+        display(result.data);
+    });
+}
+
+
+function bySingerFilm() {
+    let s = document.getElementById("sfSinger").value;
+    let f = document.getElementById("sfFilm").value;
+
+    document.getElementById("data").innerHTML =
+        "<tr><td colspan='6'>Searching...</td></tr>";
+
+    fetch(`/singer-film?singer=${encodeURIComponent(s)}&film=${encodeURIComponent(f)}`)
+    .then(res => res.json())
+    .then(data => display(data));
+}
+
+function updateActorPUT() {
+    let name = document.getElementById("uName").value;
+    let actor = document.getElementById("uActor").value;
+    let actress = document.getElementById("uActress").value;
+
+    fetch('/update-actor/' + encodeURIComponent(name), {
+        method: 'PUT',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            actor: actor,
+            actress: actress
+        })
+    })
+    .then(res => res.text())
+    .then(msg => {
+        alert(msg);
+        loadSongs();
+    });
+}
+</script>
+
+</body>
+</html>

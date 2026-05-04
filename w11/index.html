@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register & Login</title>
+    <style>
+        body { font-family: Arial; text-align: center; }
+        input, button { padding: 8px; margin: 5px; width: 250px; }
+        .box { border:1px solid #ccc; padding:20px; margin:20px; display:inline-block; }
+    </style>
+</head>
+
+<body>
+
+<h2>Registration Form</h2>
+
+<div class="box">
+    <input id="name" placeholder="Name"><br>
+    <input id="email" placeholder="Email"><br>
+    <input id="mobile" placeholder="Mobile"><br>
+    <input type="date" id="dob"><br>
+    <input id="city" placeholder="City"><br>
+    <input id="address" placeholder="Address"><br>
+    <input id="username" placeholder="Username"><br>
+    <input type="password" id="password" placeholder="Password"><br>
+
+    <button onclick="register()">Register</button>
+</div>
+
+<h2>Login Form</h2>
+
+<div class="box">
+    <input id="loginUser" placeholder="Username"><br>
+    <input type="password" id="loginPass" placeholder="Password"><br>
+
+    <button onclick="login()">Login</button>
+</div>
+
+<script>
+
+// 🔹 Validation (FIXED)
+function validate(user) {
+
+    for (let key in user) {
+        if (!user[key] || user[key].toString().trim() === "") {
+            alert(key + " is required");
+            return false;
+        }
+    }
+
+    let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    let mobilePattern = /^[0-9]{10}$/;
+
+    if (!emailPattern.test(user.email)) {
+        alert("Invalid email");
+        return false;
+    }
+
+    if (!mobilePattern.test(user.mobile)) {
+        alert("Invalid mobile number");
+        return false;
+    }
+
+    if (user.password.length < 4) {
+        alert("Password must be at least 4 characters");
+        return false;
+    }
+
+    return true;
+}
+
+// 🔹 AJAX POST (XMLHttpRequest)
+function ajaxPost(url, data, callback) {
+
+    let xhr = new XMLHttpRequest();
+
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            callback(xhr.response);
+        }
+    };
+
+    setTimeout(() => {
+
+        let users = JSON.parse(localStorage.getItem("users")) || [];
+
+        let response = { success: true };
+
+        if (url === "/register") {
+
+            let exists = users.find(u => u.username === data.username);
+
+            if (exists) {
+                response = { success: false, message: "Username already exists!" };
+            } else {
+                users.push(data);
+                localStorage.setItem("users", JSON.stringify(users));
+            }
+        }
+
+        xhr.status = 200;
+        xhr.response = response;
+        xhr.onload();
+
+    }, 300);
+
+    xhr.send(JSON.stringify(data));
+}
+
+// 🔹 Register
+function register() {
+
+    let user = {
+        name: document.getElementById("name").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        mobile: document.getElementById("mobile").value.trim(),
+        dob: document.getElementById("dob").value,
+        city: document.getElementById("city").value.trim(),
+        address: document.getElementById("address").value.trim(),
+        username: document.getElementById("username").value.trim(),
+        password: document.getElementById("password").value.trim()
+    };
+
+    console.log(user); // 🔍 debug
+
+    if (!validate(user)) return;
+
+    ajaxPost("/register", user, function ()
+     {
+        alert("Registered Successfully!");
+
+    document.querySelectorAll("input").forEach(i => i.value = "");
+});
+}
+
+// 🔹 Login
+function login() {
+
+    let u = document.getElementById("loginUser").value.trim();
+    let p = document.getElementById("loginPass").value.trim();
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    let found = users.find(user => user.username === u && user.password === p);
+
+    if (found) {
+        alert("Login Successful!");
+        window.location.href = "data.html";
+    } else {
+        alert("Invalid Credentials");
+    }
+}
+
+</script>
+
+</body>
+</html>

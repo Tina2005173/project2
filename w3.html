@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ABC Delights - Restaurant Menu</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 0;
+            background-color: #f8f8f8;
+        }
+
+        header {
+            background-color: #8B0000;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        section {
+            padding: 20px;
+            margin: 10px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        h2 {
+            color: #8B0000;
+        }
+
+        ul {
+            list-style-type: square;
+        }
+
+        table {
+            width: 90%;
+            margin: auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #333;
+            color: white;
+        }
+
+        img {
+            width: 80px;
+            height: 80px;
+        }
+
+        footer {
+            background-color: #8B0000;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .flex-container {
+            display: flex;          /* makes items go side by side */
+            gap: 20px;              /* space between them */
+            margin: 10px;
+        }
+
+        .box {
+            flex: 1;                /* both take equal width */
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>ABC Delights - Restaurant Menu</h1>
+    <p>Welcome to ABC Delights</p>
+</header>
+
+<section>
+    <h2>About Us</h2>
+    <p>We provide high-quality food with the best ingredients. Our goal is to deliver delicious meals with excellent service.</p>
+    
+    <h3>Chef’s Message</h3>
+    <p>“Cooking is an art, and we ensure every dish is made with love and perfection.”</p>
+
+    <h3>Food Quality Assurance</h3>
+    <p>We use fresh ingredients and maintain hygiene standards for all dishes.</p>
+</section>
+
+<!-- <section>
+    <h2>Top Dishes</h2>
+    <ol>
+        <li>Paneer Tikka</li>
+        <li>Biryani</li>
+        <li>Pizza</li>
+    </ol>
+</section>
+
+<section>
+    <h2>Available Cuisines</h2>
+    <ul>
+        <li>Indian</li>
+        <li>Italian</li>
+        <li>Chinese</li>
+    </ul>
+</section> -->
+
+<div class="flex-container">
+
+    <section class="box">
+        <h2>Top Dishes</h2>
+        <ol>
+            <li>Paneer Tikka</li>
+            <li>Biryani</li>
+            <li>Pizza</li>
+        </ol>
+    </section>
+
+    <section class="box">
+        <h2>Available Cuisines</h2>
+        <ul>
+            <li>Indian</li>
+            <li>Italian</li>
+            <li>Chinese</li>
+        </ul>
+    </section>
+
+</div>
+
+<section>
+    <h2>Menu</h2>
+
+    <table>
+        <tr>
+            <th>Image</th>
+            <th>Dish Name</th>
+            <th>Description</th>
+            <th>Price (₹)</th>
+        </tr>
+
+        <tr>
+            <td><img src="one.jpg"></td>
+            <td>Paneer Tikka</td>
+            <td>Grilled paneer with spices</td>
+            <td>₹250</td>
+        </tr>
+
+        <tr>
+            <td><img src="https://via.placeholder.com/80"></td>
+            <td>Biryani</td>
+            <td>Rice with aromatic spices</td>
+            <td>₹300</td>
+        </tr>
+
+        <tr>
+            <td><img src="https://via.placeholder.com/80"></td>
+            <td>Pizza</td>
+            <td>Cheesy Italian delight</td>
+            <td>₹400</td>
+        </tr>
+
+        <tr>
+            <td><img src="https://via.placeholder.com/80"></td>
+            <td>Noodles</td>
+            <td>Chinese style noodles</td>
+            <td>₹200</td>
+        </tr>
+    </table>
+</section>
+
+<footer>
+    <p>© 2026 ABC Delights</p>
+</footer>
+
+</body>
+</html>

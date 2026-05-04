@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Directory</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .card {
+            border: 1px solid #ccc;
+            margin: 15px;
+            padding: 15px;
+            width: 220px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ddd;
+        }
+
+        img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>Employee Directory</h2>
+
+<button onclick="loadEmployees()">Load Employees</button>
+
+<div class="container" id="output"></div>
+
+<script>
+function loadEmployees() {
+
+    fetch("/api/employees")   // ✅ same origin → no CORS
+    .then(res => res.json())
+    .then(data => {
+
+        let result = "";
+
+        data.forEach(emp => {
+            result += `
+                <div class="card">
+                    <img src="${emp.image}">
+                    <h3>${emp.name}</h3>
+                    <p><b>${emp.designation}</b></p>
+                    <p>Department: ${emp.department}</p>
+                    <p>Salary: ${emp.salary}</p>
+                </div>
+            `;
+        });
+
+        document.getElementById("output").innerHTML = result;
+    })
+    .catch(err => {
+        document.getElementById("output").innerHTML = "Error loading data";
+    });
+}
+</script>
+
+</body>
+</html>

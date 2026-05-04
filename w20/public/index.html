@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Management</title>
+    <style>
+        body { text-align:center; font-family:Arial; }
+        input, button { margin:5px; padding:8px; }
+        table { border-collapse:collapse; width:90%; margin:auto; }
+        th, td { border:1px solid black; padding:10px; }
+    </style>
+</head>
+
+<body>
+
+<h2>👨‍💼 Employee Management</h2>
+
+<!-- ADD -->
+<input id="name" placeholder="Name">
+<input id="dept" placeholder="Department">
+<input id="desg" placeholder="Designation">
+<input id="salary" placeholder="Salary">
+<input id="date" type="date">
+<button onclick="addEmployee()">Add</button>
+
+<br><br>
+
+<button onclick="loadEmployees()">View All</button>
+
+<br><br>
+
+<!-- UPDATE -->
+<input id="uName" placeholder="Name to Update">
+<input id="uSalary" placeholder="New Salary">
+<button onclick="updateEmployee()">Update Salary</button>
+
+<!-- DELETE -->
+<input id="dName" placeholder="Name to Delete">
+<button onclick="deleteEmployee()">Delete</button>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Department</th>
+<th>Designation</th>
+<th>Salary</th>
+<th>Joining Date</th>
+</tr>
+</thead>
+<tbody id="data"></tbody>
+</table>
+
+<script>
+
+// Add
+function addEmployee() {
+    fetch('/employees', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            name: document.getElementById("name").value,
+            department: document.getElementById("dept").value,
+            designation: document.getElementById("desg").value,
+            salary: document.getElementById("salary").value,
+            joining_date: document.getElementById("date").value
+        })
+    })
+    .then(res => res.text())
+    .then(msg => {
+        alert(msg);
+
+        // ✅ CLEAR INPUT FIELDS
+        document.getElementById("name").value = "";
+        document.getElementById("dept").value = "";
+        document.getElementById("desg").value = "";
+        document.getElementById("salary").value = "";
+        document.getElementById("date").value = "";
+
+        loadEmployees(); // optional refresh
+    });
+}
+// View
+function loadEmployees() {
+    fetch('/employees')
+    .then(res => res.json())
+    .then(data => display(data));
+}
+
+// Display
+function display(data) {
+    let html = "";
+    data.forEach(e => {
+        html += `
+        <tr>
+            <td>${e.name}</td>
+            <td>${e.department}</td>
+            <td>${e.designation}</td>
+            <td>${e.salary}</td>
+            <td>${new Date(e.joining_date).toLocaleDateString()}</td>
+        </tr>`;
+    });
+    document.getElementById("data").innerHTML = html;
+}
+
+// Update
+function updateEmployee() {
+    let name = document.getElementById("uName").value;
+
+    fetch('/employees/' + name, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            salary: document.getElementById("uSalary").value
+        })
+    })
+    .then(res => res.text())
+    .then(msg => alert(msg));
+    document.getElementById("uName").value = "";
+document.getElementById("uSalary").value = "";
+}
+
+// Delete
+function deleteEmployee() {
+    let name = document.getElementById("dName").value;
+
+    fetch('/employees/' + name, {
+        method: 'DELETE'
+    })
+    .then(res => res.text())
+    .then(msg => {
+        alert(msg);
+        loadEmployees();
+    });
+    document.getElementById("dName").value = "";
+}
+
+</script>
+
+</body>
+</html>

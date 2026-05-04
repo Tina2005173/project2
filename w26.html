@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PICT Course Structure</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- jQuery Mobile -->
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <style>
+        .ui-header {
+            background: #2c3e50 !important;
+            color: white !important;
+        }
+
+        .ui-navbar ul li a {
+            background: #34495e !important;
+            color: white !important;
+        }
+
+        .ui-btn-active {
+            background: #1abc9c !important;
+        }
+
+        body {
+            background: #ecf0f1;
+        }
+
+        .card {
+            background: white;
+            margin: 10px;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- HOME -->
+<div data-role="page" id="home">
+
+    <div data-role="header">
+        <h1>PICT B.E. Courses</h1>
+
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#home" class="ui-btn-active" data-transition="slide">Home</a></li>
+                <li><a href="#courses" data-transition="fade">Courses</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Course Structure</h2>
+        <p>Explore the B.E. curriculum for all four years at PICT.</p>
+    </div>
+
+</div>
+
+<!-- COURSE PAGE -->
+<div data-role="page" id="courses">
+
+    <div data-role="header">
+        <h1>B.E. Structure</h1>
+
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#home" data-transition="slide">Home</a></li>
+                <li><a href="#courses" class="ui-btn-active">Courses</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+
+        <!-- FE -->
+        <div data-role="collapsible">
+            <h3>First Year (FE)</h3>
+            <p><b>Mathematics-I:</b> Engineering mathematics fundamentals.</p>
+            <p><b>Physics:</b> Basic concepts of mechanics and waves.</p>
+            <p><b>Basic Electrical:</b> Introduction to circuits.</p>
+            <p><b>Engineering Graphics:</b> Technical drawing skills.</p>
+        </div>
+
+        <!-- SE -->
+        <div data-role="collapsible">
+            <h3>Second Year (SE)</h3>
+            <p><b>Data Structures:</b> Arrays, stacks, queues, trees.</p>
+            <p><b>OOP:</b> Object-oriented programming concepts.</p>
+            <p><b>Digital Logic:</b> Logic gates and circuits.</p>
+            <p><b>Discrete Mathematics:</b> Logic and combinatorics.</p>
+        </div>
+
+        <!-- TE -->
+        <div data-role="collapsible">
+            <h3>Third Year (TE)</h3>
+            <p><b>DBMS:</b> Database design and SQL.</p>
+            <p><b>Operating System:</b> Process and memory management.</p>
+            <p><b>Computer Networks:</b> Networking concepts.</p>
+            <p><b>Software Engineering:</b> Development lifecycle.</p>
+        </div>
+
+        <!-- BE -->
+        <div data-role="collapsible">
+            <h3>Final Year (BE)</h3>
+            <p><b>Machine Learning:</b> AI and predictive models.</p>
+            <p><b>Cloud Computing:</b> Distributed systems.</p>
+            <p><b>Cyber Security:</b> Network and data protection.</p>
+            <p><b>Project Work:</b> Major final year project.</p>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

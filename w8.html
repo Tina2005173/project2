@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Event Registration</title>
+
+    <!-- For OFFLINE exam: replace with local bootstrap.css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .form-box {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="form-box">
+    <h2 class="text-center mb-4">Event Registration</h2>
+
+    <form id="myForm">
+
+        <!-- Name -->
+        <div class="form-floating mb-3">
+            <input type="text" id="name" class="form-control" placeholder="Name"
+                   data-bs-toggle="tooltip" title="Only letters allowed">
+            <label>Full Name</label>
+        </div>
+
+        <!-- Email -->
+        <div class="form-floating mb-3">
+            <input type="email" id="email" class="form-control" placeholder="Email"
+                   data-bs-toggle="tooltip" title="Must be a Gmail address">
+            <label>Email</label>
+        </div>
+
+        <!-- Phone -->
+        <div class="form-floating mb-3">
+            <input type="text" id="phone" class="form-control" placeholder="Phone"
+                   data-bs-toggle="tooltip" title="Enter 10-digit number">
+            <label>Phone</label>
+        </div>
+
+        <!-- Password -->
+        <div class="form-floating mb-3">
+            <input type="password" id="password" class="form-control" placeholder="Password"
+                   data-bs-toggle="tooltip" title="Minimum 6 characters">
+            <label>Password</label>
+        </div>
+
+        <!-- Event -->
+        <div class="mb-3">
+            <label>Select Event</label>
+            <select id="event" class="form-select"
+                    data-bs-toggle="tooltip" title="Choose an event">
+                <option value="">Choose...</option>
+                <option>Workshop</option>
+                <option>Seminar</option>
+                <option>Hackathon</option>
+            </select>
+        </div>
+
+        <button class="btn btn-primary w-100">Register</button>
+
+    </form>
+
+    <!-- Result -->
+    <div id="result" class="mt-4"></div>
+
+</div>
+
+<!-- Bootstrap JS (REQUIRED for tooltip) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+// ✅ Enable ALL tooltips (IMPORTANT)
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+tooltipTriggerList.forEach(el => new bootstrap.Tooltip(el));
+
+// ✅ FORM VALIDATION
+document.getElementById('myForm').addEventListener("submit",(e) => {
+    e.preventDefault();
+
+    let name = document.getElementById('name').value.trim();
+    let email = document.getElementById('email').value.trim();
+    let phone = document.getElementById('phone').value.trim();
+    let password = document.getElementById('password').value.trim();
+    let event = document.getElementById('event').value;
+
+    // Empty check
+    if(name === "" || email === "" || password === "" || event === "" || phone === ""){
+        alert("Please fill all the fields");
+        return;
+    }
+
+    // Name validation
+    if(!/^[a-zA-Z ]+$/.test(name)){
+        alert("Name should contain only letters");
+        return;        
+    }
+
+    // Email validation
+    if(!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(email)){
+        alert("Enter a valid Gmail address");
+        return;        
+    }
+
+    // Phone validation
+    if(!/^[0-9]{10}$/.test(phone)){
+        alert("Phone number should be 10 digits");
+        return;        
+    }
+
+    // Password validation
+    if(password.length < 6){
+        alert("Password should be at least 6 characters long");
+        return;        
+    }
+
+    alert("Registration Successful");
+
+    // Show result
+    document.getElementById('result').innerHTML = `
+        <h4>Registration Details:</h4>
+        <p><b>Name:</b> ${name}</p>
+        <p><b>Email:</b> ${email}</p>
+        <p><b>Event:</b> ${event}</p>
+        <p><b>Phone:</b> ${phone}</p>
+    `;
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Portfolio</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- jQuery Mobile -->
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <style>
+        body { font-family: Arial; }
+
+        .ui-page {
+            background: linear-gradient(to right, #74ebd5, #ACB6E5);
+        }
+
+        .ui-header {
+            background: #2c3e50 !important;
+            color: white !important;
+        }
+
+        .ui-navbar ul li a {
+            background: #34495e !important;
+            color: white !important;
+        }
+
+        .ui-btn-active {
+            background: #1abc9c !important;
+        }
+
+        .card {
+            background: white;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- HOME / ABOUT -->
+<div data-role="page" id="home">
+
+    <div data-role="header">
+        <h1>My Portfolio</h1>
+
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#home" class="ui-btn-active" data-transition="slide">About</a></li>
+                <li><a href="#projects" data-transition="fade">Projects</a></li>
+                <li><a href="#skills" data-transition="flip">Skills</a></li>
+                <li><a href="#contact" data-transition="pop">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>About Me</h2>
+        <p>Hello! I am a B.Tech student passionate about web development and AI.</p>
+        <p>I enjoy building applications using JavaScript, Node.js, and databases.</p>
+    </div>
+
+</div>
+
+<!-- PROJECTS -->
+<div data-role="page" id="projects">
+
+    <div data-role="header">
+        <h1>Projects</h1>
+
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#home">About</a></li>
+                <li><a href="#projects" class="ui-btn-active">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Weather App</h3>
+        <p>Built using JavaScript and AJAX to fetch weather data.</p>
+    </div>
+
+    <div class="card">
+        <h3>Employee Management System</h3>
+        <p>CRUD app using Node.js, Express, and MongoDB.</p>
+    </div>
+
+    <div class="card">
+        <h3>To-Do List</h3>
+        <p>Task manager with dynamic updates using AJAX.</p>
+    </div>
+
+</div>
+
+<!-- SKILLS -->
+<div data-role="page" id="skills">
+
+    <div data-role="header">
+        <h1>Skills</h1>
+
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#home">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills" class="ui-btn-active">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+
+        <div data-role="collapsible">
+            <h3>Programming</h3>
+            <p>C, C++, JavaScript</p>
+        </div>
+
+        <div data-role="collapsible">
+            <h3>Web Development</h3>
+            <p>HTML, CSS, Bootstrap, Node.js</p>
+        </div>
+
+        <div data-role="collapsible">
+            <h3>Database</h3>
+            <p>MySQL, MongoDB</p>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- CONTACT -->
+<div data-role="page" id="contact">
+
+    <div data-role="header">
+        <h1>Contact</h1>
+
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#home">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact" class="ui-btn-active">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <p><b>Email:</b> yourname@gmail.com</p>
+        <p><b>Phone:</b> +91 9876543210</p>
+        <p><b>LinkedIn:</b> linkedin.com/in/yourname</p>
+    </div>
+
+</div>
+
+</body>
+</html>

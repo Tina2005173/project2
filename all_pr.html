@@ -1,0 +1,233 @@
+<!-- <html>
+
+<head>
+    <style>
+
+        button {
+            text-align :center;
+            width:80px;
+            margin:20px;
+            padding:10px; 
+
+        }
+        table{
+            border-collapse:collapse ;
+            padding :10px;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        img{
+            width:200px;
+            height:100px;
+        }
+
+        thead{
+            background-color: azure;
+            border : 2px solid black;
+        }
+
+        tr,th,td{
+            border : 1px solid black;
+            padding:10px;
+            margin :20px;
+        }
+
+    </style>
+</head>
+    <body>
+
+        <h1> all producrts are down there </h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th> name </th>
+                    <th> price </th>
+                    <th> desc </th>
+                    <th> img </th>
+                </tr>
+            </thead>
+            <tbody id ="tablebody"></tbody>
+        </table>
+       <div style="   text-align: center;
+    margin-top: 20px;">
+            <button onclick="prev()">prev</button>
+            <span id ="numbring"></span>
+            <button onclick="next()">prev</button>
+        </div>
+
+        <script>
+            let allproducts =[
+                {name: "Wireless Headphones", price: 7999, desc: "Noise-cancelling headphones", img: "one.jpg"},
+                {name: "Smartwatch", price: 12999, desc: "Fitness tracking watch", img: "https://via.placeholder.com/60"},
+                {name: "Gaming Mouse", price: 2499, desc: "Ergonomic gaming mouse", img: "https://via.placeholder.com/60"},
+                {name: "Laptop Stand", price: 1999, desc: "Adjustable stand", img: "https://via.placeholder.com/60"},
+                {name: "Keyboard", price: 1499, desc: "Mechanical keyboard", img: "https://via.placeholder.com/60"},
+                {name: "Monitor", price: 9999, desc: "24 inch display", img: "https://via.placeholder.com/60"},
+                {name: "USB Hub", price: 799, desc: "Multi-port USB hub", img: "https://via.placeholder.com/60"},
+                {name: "External HDD", price: 5499, desc: "1TB storage", img: "https://via.placeholder.com/60"},
+                {name: "Webcam", price: 2999, desc: "HD webcam", img: "https://via.placeholder.com/60"},
+                {name: "Speaker", price: 1999, desc: "Bluetooth speaker", img: "https://via.placeholder.com/60"},
+                {name: "Power Bank", price: 1499, desc: "10000mAh battery", img: "https://via.placeholder.com/60"},
+                {name: "Router", price: 2499, desc: "WiFi router", img: "https://via.placeholder.com/60"}
+            ];
+
+            const totrow=5;
+            let currentpage = 1;
+
+            function display()
+            {
+                let start = (currentpage-1)*totrow;
+                let end = start + totrow;
+                let product = allproducts.slice(start,end);
+
+                const b =document.getElementById("tablebody");
+                b.innerHTML=" ";
+
+                product.forEach(p=>{
+                    let row =`
+                    <tr>
+                        <td><img src ="${p.img}">
+                            <td>${p.name}</td>
+                            <td>${p.desc}</td>
+                            <td>${p.price}</td>
+
+                    </tr>`;
+                    b.innerHTML+=row;
+                });
+
+                document.getElementById("numbring").innerHTML="page " + currentpage +" of "+Math.ceil(allproducts.length/totrow);
+            }
+
+            function prev()
+            {
+                if(currentpage > 1)
+                {
+                    currentpage --;
+                    display();
+                }
+            }
+
+            function next()
+            {
+                if(currentpage < (Math.ceil(allproducts.length/totrow)))
+                {
+                    currentpage++;
+                    display();
+                }
+            }
+
+            display();
+
+
+        </script>
+    </body>
+    </html> -->
+
+
+
+
+
+    <!-- <html>
+
+    <head>
+        <style>
+            header{
+                background-color: rgb(92, 93, 93);
+                color:white;
+                padding:10px;
+                text-align:center;
+            }
+
+            footer{
+                background-color: rgb(92, 93, 93);
+                color:white;
+                padding:10px;
+                text-align:center;
+            }
+
+            section{
+                background-color: white;
+                padding :10px;
+                margin:10px;
+                border-radius:20px;
+            }
+
+            nav{
+                text-align:center;
+                padding:10px;
+                background-color: aqua;
+            }
+
+            nav a:hover{
+                color:yellow;
+            }
+
+            nav a {
+                color:white;
+                font-weight:bold;
+                padding : 20px;
+            }
+            body{
+                background-color: beige;
+            }
+
+        </style>
+    </head>
+        <body>
+            <header><h1> Hello </h1></header>
+
+            <nav>
+                <a href ="#about">about</a>
+                <a href ="#skill">skill</a>
+            </nav>
+
+            <section id="about">
+                <h2>in about</h2>
+            </section>
+
+            <section id="skill">
+                <h2>in skill</h2>
+                <ul>
+                    <li>123</li>
+                    <li>456</li>
+                </ul>
+            </section>
+
+            <section id="skill">
+                <h2>in skill</h2>
+                <ul>
+                    <li>123</li>
+                    <li>456</li>
+                </ul>
+            </section>
+
+
+            <section id="skill">
+                <h2>in skill</h2>
+                <ul>
+                    <li>123</li>
+                    <li>456</li>
+                </ul>
+            </section>
+
+            <section id="skill">
+                <h2>in skill</h2>
+                <ul>
+                    <li>123</li>
+                    <li>456</li>
+                </ul>
+            </section>
+
+             <footer>
+                <h2>footer</h2>
+            </footer>   
+
+        </body>
+    </html> -->
+
+
+    
+
+
