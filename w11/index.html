@@ -1,156 +1,218 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Register & Login</title>
+    <meta charset="UTF-8">
+    <title>Registration and Login</title>
     <style>
-        body { font-family: Arial; text-align: center; }
-        input, button { padding: 8px; margin: 5px; width: 250px; }
-        .box { border:1px solid #ccc; padding:20px; margin:20px; display:inline-block; }
+        body { font-family: Arial; background: #f4f4f4; padding: 20px; }
+        .container { max-width: 800px; margin: auto; background: #fff; padding: 20px; border-radius: 10px; }
+        .form-group { margin-bottom: 15px; }
+        input { width: 100%; padding: 10px; box-sizing: border-box; }
+        button { padding: 10px 20px; margin-top: 10px; }
+        .error { color: red; }
+        .success { color: green; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        th { background: #eee; }
+        .hidden { display: none; }
+        .toggle-link { color: blue; cursor: pointer; text-decoration: underline; }
     </style>
 </head>
 
 <body>
 
-<h2>Registration Form</h2>
+<div class="container">
 
-<div class="box">
-    <input id="name" placeholder="Name"><br>
-    <input id="email" placeholder="Email"><br>
-    <input id="mobile" placeholder="Mobile"><br>
-    <input type="date" id="dob"><br>
-    <input id="city" placeholder="City"><br>
-    <input id="address" placeholder="Address"><br>
-    <input id="username" placeholder="Username"><br>
-    <input type="password" id="password" placeholder="Password"><br>
+    <!-- REGISTER -->
+    <div id="registerSection">
+        <h2>Register</h2>
+        <form id="registerForm">
+            <div class="form-group"><input type="text" id="name" placeholder="Full Name"></div>
+            <div class="form-group"><input type="email" id="email" placeholder="Email"></div>
+            <div class="form-group"><input type="text" id="mobile" placeholder="Mobile (10 digits)"></div>
+            <div class="form-group"><input type="date" id="dob"></div>
+            <div class="form-group"><input type="text" id="city" placeholder="City"></div>
+            <div class="form-group"><input type="text" id="address" placeholder="Address"></div>
+            <div class="form-group"><input type="text" id="regUsername" placeholder="Username"></div>
+            <div class="form-group"><input type="password" id="regPassword" placeholder="Password (min 6 chars)"></div>
+            <button type="submit">Register</button>
+            <p id="registerMessage" class="error"></p>
+        </form>
+        <p>Already have an account? <span class="toggle-link" id="showLogin">Login</span></p>
+    </div>
 
-    <button onclick="register()">Register</button>
-</div>
+    <!-- LOGIN -->
+    <div id="loginSection" class="hidden">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="form-group"><input type="text" id="loginUsername" placeholder="Username"></div>
+            <div class="form-group"><input type="password" id="loginPassword" placeholder="Password"></div>
+            <button type="submit">Login</button>
+            <p id="loginMessage" class="error"></p>
+        </form>
+        <p>Don't have an account? <span class="toggle-link" id="showRegister">Register</span></p>
+    </div>
 
-<h2>Login Form</h2>
+    <!-- USER LIST -->
+    <div id="userList" class="hidden">
+        <h3>Registered Users</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>DOB</th>
+                    <th>City</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+            <tbody id="userTableBody"></tbody>
+        </table>
+        <p><span class="toggle-link" id="logout">Logout</span></p>
+    </div>
 
-<div class="box">
-    <input id="loginUser" placeholder="Username"><br>
-    <input type="password" id="loginPass" placeholder="Password"><br>
-
-    <button onclick="login()">Login</button>
 </div>
 
 <script>
 
-// 🔹 Validation (FIXED)
-function validate(user) {
-
-    for (let key in user) {
-        if (!user[key] || user[key].toString().trim() === "") {
-            alert(key + " is required");
-            return false;
-        }
-    }
-
-    let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-    let mobilePattern = /^[0-9]{10}$/;
-
-    if (!emailPattern.test(user.email)) {
-        alert("Invalid email");
-        return false;
-    }
-
-    if (!mobilePattern.test(user.mobile)) {
-        alert("Invalid mobile number");
-        return false;
-    }
-
-    if (user.password.length < 4) {
-        alert("Password must be at least 4 characters");
-        return false;
-    }
-
-    return true;
+function isValidEmail(email) {
+    return email.indexOf("@") > 0 && email.indexOf(".") > email.indexOf("@");
 }
 
-// 🔹 AJAX POST (XMLHttpRequest)
-function ajaxPost(url, data, callback) {
+// Simulated AJAX POST
+function ajaxPost(data) {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            let users = JSON.parse(localStorage.getItem("users") || "[]");
+            users.push(data);
+            localStorage.setItem("users", JSON.stringify(users));
+            resolve({ status: "success" });
+        }, 300);
+    });
+}
 
-    let xhr = new XMLHttpRequest();
+// Toggle forms
+document.getElementById("showLogin").onclick = () => {
+    document.getElementById("registerSection").classList.add("hidden");
+    document.getElementById("loginSection").classList.remove("hidden");
+};
 
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
+document.getElementById("showRegister").onclick = () => {
+    document.getElementById("loginSection").classList.add("hidden");
+    document.getElementById("registerSection").classList.remove("hidden");
+};
 
-    xhr.onload = function () {
-        if (xhr.status === 200) {
-            callback(xhr.response);
-        }
-    };
+// Logout
+document.getElementById("logout").onclick = () => {
+    document.getElementById("userList").classList.add("hidden");
+    document.getElementById("loginSection").classList.remove("hidden");
+};
+
+// REGISTER
+document.getElementById("registerForm").onsubmit = async function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const mobile = document.getElementById("mobile").value.trim();
+    const dob = document.getElementById("dob").value;
+    const city = document.getElementById("city").value.trim();
+    const address = document.getElementById("address").value.trim();
+    const username = document.getElementById("regUsername").value.trim();
+    const password = document.getElementById("regPassword").value;
+
+    const msg = document.getElementById("registerMessage");
+    msg.textContent = "";
+    msg.className = "error";
+
+    if (!name || !email || !mobile || !dob || !city || !address || !username || !password) {
+        msg.textContent = "All fields are required";
+        return;
+    }
+
+    if (!isValidEmail(email)) {
+        msg.textContent = "Invalid email";
+        return;
+    }
+
+    if (mobile.length !== 10 || isNaN(mobile)) {
+        msg.textContent = "Mobile must be 10 digits";
+        return;
+    }
+
+    if (password.length < 6) {
+        msg.textContent = "Password must be at least 6 characters";
+        return;
+    }
+
+    let users = JSON.parse(localStorage.getItem("users") || "[]");
+
+    if (users.some(u => u.username === username)) {
+        msg.textContent = "Username already exists";
+        return;
+    }
+
+    const userData = { name, email, mobile, dob, city, address, username, password };
+
+    await ajaxPost(userData);
+
+    msg.textContent = "Registration successful!";
+    msg.className = "success";
+
+    this.reset();
 
     setTimeout(() => {
+        document.getElementById("registerSection").classList.add("hidden");
+        document.getElementById("loginSection").classList.remove("hidden");
+        msg.textContent = "";
+    }, 1200);
+};
 
-        let users = JSON.parse(localStorage.getItem("users")) || [];
+// LOGIN
+document.getElementById("loginForm").onsubmit = function(e) {
+    e.preventDefault();
 
-        let response = { success: true };
+    const username = document.getElementById("loginUsername").value.trim();
+    const password = document.getElementById("loginPassword").value;
+    const msg = document.getElementById("loginMessage");
 
-        if (url === "/register") {
+    msg.textContent = "";
 
-            let exists = users.find(u => u.username === data.username);
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
 
-            if (exists) {
-                response = { success: false, message: "Username already exists!" };
-            } else {
-                users.push(data);
-                localStorage.setItem("users", JSON.stringify(users));
-            }
-        }
+    const user = users.find(u => u.username === username && u.password === password);
 
-        xhr.status = 200;
-        xhr.response = response;
-        xhr.onload();
+    if (user) {
+        msg.textContent = "Login successful!";
+        msg.className = "success";
 
-    }, 300);
-
-    xhr.send(JSON.stringify(data));
-}
-
-// 🔹 Register
-function register() {
-
-    let user = {
-        name: document.getElementById("name").value.trim(),
-        email: document.getElementById("email").value.trim(),
-        mobile: document.getElementById("mobile").value.trim(),
-        dob: document.getElementById("dob").value,
-        city: document.getElementById("city").value.trim(),
-        address: document.getElementById("address").value.trim(),
-        username: document.getElementById("username").value.trim(),
-        password: document.getElementById("password").value.trim()
-    };
-
-    console.log(user); // 🔍 debug
-
-    if (!validate(user)) return;
-
-    ajaxPost("/register", user, function ()
-     {
-        alert("Registered Successfully!");
-
-    document.querySelectorAll("input").forEach(i => i.value = "");
-});
-}
-
-// 🔹 Login
-function login() {
-
-    let u = document.getElementById("loginUser").value.trim();
-    let p = document.getElementById("loginPass").value.trim();
-
-    let users = JSON.parse(localStorage.getItem("users")) || [];
-
-    let found = users.find(user => user.username === u && user.password === p);
-
-    if (found) {
-        alert("Login Successful!");
-        window.location.href = "data.html";
+        document.getElementById("loginSection").classList.add("hidden");
+        showUserList(users);
     } else {
-        alert("Invalid Credentials");
+        msg.textContent = "Invalid credentials";
+        msg.className = "error";
     }
+};
+
+// SHOW USERS
+function showUserList(users) {
+    document.getElementById("userList").classList.remove("hidden");
+
+    const tbody = document.getElementById("userTableBody");
+    tbody.innerHTML = "";
+
+    users.forEach(user => {
+        tbody.innerHTML += `
+        <tr>
+            <td>${user.name}</td>
+            <td>${user.email}</td>
+            <td>${user.mobile}</td>
+            <td>${user.dob}</td>
+            <td>${user.city}</td>
+            <td>${user.address}</td>
+        </tr>`;
+    });
 }
 
 </script>
