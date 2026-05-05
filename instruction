@@ -1,0 +1,18 @@
+ng new user-app
+cd user-app
+code .
+ng serve
+ng generate component register
+ng generate component login
+ng generate component profile
+or
+ng g c register
+ng g c login
+ng g c profile
+Configure App Routing Provider: src/app/app.config.ts
+
+
+npm init -y 
+npm install express mongoose
+node server.js
+
