@@ -3,7 +3,8 @@ let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 displayTasks();
 
 // ADD TASK
-function addTask() {
+function addTask() 
+{
     let task = document.getElementById("taskInput").value;
 
     if (!task) {
